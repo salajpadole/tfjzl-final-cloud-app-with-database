@@ -48,7 +48,7 @@
             <section class="card mt-4">
                 <div class="card-header"><h4 class="mb-0">Course Exam</h4></div>
                 <div class="card-body">
-                    {% if course.enrollment_set.filter %}
+                    {% if is_enrolled %}
                         <form action="{% url 'onlinecourse:submit' course.id %}" method="post">
                             {% csrf_token %}
                             {% for question in course.question_set.all %}
@@ -60,10 +60,10 @@
                                     <div class="card-body">
                                         {% for choice in question.choice_set.all %}
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio"
+                                                <input class="form-check-input" type="checkbox"
                                                        name="choice_{{ question.id }}"
                                                        id="choice_{{ choice.id }}"
-                                                       value="{{ choice.id }}" required>
+                                                       value="{{ choice.id }}">
                                                 <label class="form-check-label" for="choice_{{ choice.id }}">
                                                     {{ choice.content }}
                                                 </label>
